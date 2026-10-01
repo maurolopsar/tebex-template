@@ -1,0 +1,549 @@
+{# Siro Template by Johnn#8299 @ https://ipolotech.com #}
+
+{# Template Setting Area #}	
+{# All changes are made between ' '  !!!#}
+
+{% set dark_mode = 'no' %} {# THEME COLOR. For DARK MODE: 'yes', for LIGHT MODE: 'no' #}
+{% set switch_color = 'no' %} {# THEME SWITCH COLOR. To activate switch button: 'yes, to disable: 'no' #}
+{% set particles_js = 'yes' %} {# PARTICLES JS. To activate: 'yes', to disable: 'no' #}
+
+{# Set to your game #}
+{% set tebex_store = 'rust' %} {# All options: 'rust' , 'minecraft' #}
+
+{# Header Content #}
+{% set discord_link = 'https://ipolotech.com/discord' %} {# Discord server link. Include https:// or http:// #}
+{% set mc_ip = 'play.hypixel.net' %} {# Minecraft server ip #}
+{% set rust_api_key = 'DaL5cOaYQefTCkKqtSZgOZuKQTkq39SerTm' %} {# Rust API Key #}
+{% set mc_port = '25565' %} {# Minecraft server port #}
+{% set mc_title = 'Server Name' %} {# Minecraft/Rust Players count Title #}
+{% set mc_copy = 'Click to copy' %} {# Minecraft/Rust Players count subtitle #}
+{% set disc_title = 'Join Our Discord' %} {# Discord players count title #}
+{% set widget_id = '471999572441432065' %} {# Your discord ID #}
+{% set disc_click = 'Click to join' %}  {# Discord players count subtitle #}
+{% set logo_height = '240px' %}  {# Logo height #}
+{% set logo_height_mobile = '80px' %} {# Logo mobile height #}
+{% set game_icon = 'mdi mdi-gamepad-variant' %}  {# Game players icon. DO not incluse <i class=""></i> #}
+{% set mc_icon = 'mdi mdi-minecraft' %}  {# Minecraft players icon. DO not incluse <i class=""></i> #}
+{% set discord_icon = 'mdi mdi-discord' %}  {# Discord players icon. DO not incluse <i class=""></i> #}
+{% set logo_link = 'https://ipolotech.com' %} {# Logo link. Include https:// or http:// #}
+{% set particles_color = '#fd544d' %} {# Particles JS Color #}
+
+
+{# Navigation #}
+{% set nav_title = 'NAVIGATION' %} {# Navigation title #}
+{% set nav_icon = '' %} {# Navigation icon #}
+
+{# Announce Content #}
+{% set a_title = 'GET 50% OFF' %} {# Announce title #}
+{% set a_text = 'Buy one of our packages and second one is FREE!' %} {# Announce text #}
+
+{# Homepage Content #} 
+{% set h_welcome = 'Welcome to the ' %} {# Welcome text #}
+{% set h_title = 'Title' %} {# Content title #}
+{% set h_img_src = 'https://i.imgur.com/PpLjCHF.png' %} {# Image source. Include https:// or http:// #}
+{% set no_subcategories = 'No Subcategories' %} {# Text for 'No Categories' Translate #}
+
+
+{# Homepage Block #1 #} 
+{% set block1_icon = 'mdi mdi-gavel' %} {# Block icon. DO not incluse <i class=""></i> #}
+{% set block1_title = 'Refund' %} {# Block title #}
+{% set block1_content = 'Go to the packages category above and purchase the example package to see how players will eventually use your webstore.You can change the content of your homepage by going to Webstore > Design > Homepage.Need help? Email support@tebex.io and one of our support staff will get back to you as soon as possible.' %} {# Block text/content #}
+
+{# Homepage Block #2 #} 
+{% set block2_icon = 'fas fa-info' %} {# Block icon. DO not incluse <i class=""></i> #}
+{% set block2_title = 'FAQ' %} {# Block title #}
+{% set block2_content_l1 = '• You can change the content of your homepage by going to Webstore' %} {# Block text/content #} 
+{% set block2_content_l2 = '• You can change the content of your homepage by going to Webstore' %} {# Block text/content #} 
+{% set block2_content_l3 = '• You can change the content of your homepage by going to Webstore' %} {# Block text/content #} 
+        
+{# Homepage buttons #}  
+{% set but1_ic = 'mdi mdi-settings' %} {# Button icon. DO not incluse <i class=""></i>#}
+{% set but1_link = 'https://facebook.com' %} {# Button Link. Include https:// or http:// #}
+{% set but1_t = 'Support' %}  {# Button title #}
+{% set but1_st = 'Contact us for assistence' %} {# Button subtitle #}
+{% set but2_ic = 'mdi mdi-link-variant' %} {# Button icon. DO not incluse <i class=""></i> #}
+{% set but2_link = 'https://facebook.com' %} {# Button Link. Include https:// or http:// #}
+{% set but2_t = 'Facebook' %} {# Button title #}
+{% set but2_st = 'Follow us on Social Media' %} {# Button subtitle #}
+ 
+{# Header Links #}
+{% set h1_title = 'Home' %} {# Header Buttons #}
+{% set h2_title = 'Forums' %} {# Header Buttons #}
+{% set h3_title = 'Store' %} {# Header Buttons #}
+{% set h4_title = 'Bans' %} {# Header Buttons #}
+{% set h5_title = 'Vote' %} {# Header Buttons #}
+
+{# Header Links #}
+{% set h1_link = 'https://google.ro' %} {# Header Link. Include https:// or http:// #}
+{% set h2_link = 'https://google.ro' %} {# Header Link. Include https:// or http:// #}
+{% set h3_link = 'https://google.ro' %} {# Header Link. Include https:// or http:// #}
+{% set h4_link = 'https://google.ro' %} {# Header Link. Include https:// or http:// #}
+{% set h5_link = 'https://google.ro' %} {# Header Link. Include https:// or http:// #}
+
+{# Footer Content #}
+{% set foot_copy1 = 'Copyright ©' %} {# First part of Copyright #}
+{% set foot_copy2 = '2021. All Rights Reserved' %} {# Second part of Copyright #}
+{% set foot_subcopy = 'We are not affiliated with Mojang AB.' %}
+
+{# Footer Menu #}
+{% set f1_title = 'Contact' %} {# Footer Button #}
+{% set f1_link = 'https://google.ro' %} {# Footer Link. Include https:// or http:// #}
+{% set f1_icon = 'fas fa-external-link-alt' %} {# Footer Icon. DO not incluse <i class=""></i> #}
+{% set f2_title = 'Discord' %} {# Footer Button #}
+{% set f2_link = 'https://google.ro' %} {# Footer Link. Include https:// or http:// #}
+{% set f2_icon = 'fas fa-external-link-alt' %} {# Footer Icon. DO not incluse <i class=""></i> #}
+{% set f3_title = 'Forums' %} {# Footer Button #}
+{% set f3_link = 'https://google.ro' %} {# Footer Link. Include https:// or http:// #}
+{% set f3_icon = 'fas fa-external-link-alt' %} {# Footer Icon. DO not incluse <i class=""></i> #}
+
+<!DOCTYPE html>
+<html lang="en" id={% if switch_color == "yes" %}"html"{% else %}""{% endif %} class={% if dark_mode == "yes" %}"dark"{% else %}""{% endif %}>
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{{ store.name }} | {{ __(page.title) }}</title>
+
+    <link href="/templates/209/css/style.min.css" rel="stylesheet">
+   
+    <link rel="shortcut icon" href="{{ store.favicon }}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        
+        _gaq.push(['_setAccount', 'UA-36735942-3']);
+        _gaq.push(['_trackPageview']);
+        
+        {% if store.googleAnalytics %}
+            _gaq.push(['b._setAccount', '{{ store.googleAnalytics }}']);
+            _gaq.push(['b._trackPageview']);
+        {% endif %}
+        
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    
+    <style>{{ store.css|raw }}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.5.95/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Kanit:400,400i,600,700,700i,900&display=swap"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,40,700,600" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://ipolotech.com/files/js/diplt.js"></script>
+<style>
+    @media (min-width: 768px) {
+        .logo a img {
+            height: {{ logo_height }};
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .logo img {
+            height: {{ logo_height_mobile }};
+        }
+    }
+</style>
+
+</script>
+        <script>
+           $(function() {
+            IplMC("{{ mc_ip }}", document.querySelector("#players-mc"));
+            IplDiscord("{{ widget_id }}", document.querySelector("#members-discord"));
+            IplRust("{{rust_api_key}}", document.querySelector("#ipl-rust"));
+           });
+</script>
+
+  </head>
+  <body>
+<div class="ipl-header">
+    <div id="{% if particles_js == "yes" %}particles-js{% else %}{% endif %}"></div>
+    <div class="top-bar">
+        <div class="container">
+        <div class="currency-top">
+            <div class="currency">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  <span id="ipl-bcuren">{{ basket.currency }}</span>
+                <i class="mdi mdi-wallet"></i> <span class="fa fa-caret-down"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                {% for currency in store.currencies %}
+                    {% if currency.code in [store.currency, "AUD", "BRL", "CAD", "DKK", "EUR", "NOK", "NZD", "GBP", "SEK", "USD", "PLN"] %}
+                        <li {% if basket.currency == currency.code %}class="active"{% endif %}>
+                          <a href="?currency={{ currency.code }}">{{ currency.code }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+        </div>
+        
+            <div class="header-menu">
+            <div class="dd-bg" onclick="closeMobile()"></div>
+        <div class="modal" id="popup-modal" tabindex="-1" role="dialog"></div>
+                    <div class="dd-mobile">
+                        <li>   
+                            <a href="javascript:void(0)" onclick="openMobile()">
+                                <i class="mdi mdi-menu"></i><span> Menu</span>
+                            </a>
+                        </li>
+                    </div>
+            <ul id="ipl-menu" class="">
+                                        <div class="dd-close">
+                            <a href="javascript:void(0)" onclick="closeMobile()"><i class="fas fa-times"></i> close</a>
+                        </div>
+                {% if h1_title %}<li class="menu-link"><a href="{{ h1_link }}">{{ h1_title }}</a></li>{% endif %}
+                {% if h2_title %}<li class="menu-link"><a href="{{ h2_link }}">{{ h2_title }}</a></li>{% endif %}
+                {% if h3_title %}<li class="menu-link store" id="store-hover"><a href="{{ h3_link }}">{{ h3_title }}</a></li>{% endif %}
+                {% if h4_title %}<li class="menu-link"><a href="{{ h4_link }}">{{ h4_title }}</a></li>{% endif %}
+                {% if h5_title %}<li class="menu-link"><a href="{{ h5_link }}">{{ h5_title }}</a></li>{% endif %}
+            </ul>
+    </div>
+        
+        <div class="login-top">
+            {% if basket.username %} 
+            <a href="/checkout/logout" class="login-button out">{{ __("Logout") }}{% if tebex_store == "minecraft" %}<img src="https://minotar.net/avatar/{{ basket.ign }}/28.png">{% else %}{% endif %}</a>
+                   {% else %}
+<a href="/login" class="login-button">{{ __("Login") }} {% if tebex_store == "minecraft" %}<img src="https://minotar.net/avatar/{{ steve }}/28.png" width="28"> {% else %}{% endif %}</a>
+            {% endif %}
+        </div>
+    </div></div>
+    <div class="container">
+    
+    <div class="part-header">
+        <div class="players-count">
+       <div class="left ipCopy" data-clipboard-text="{% if tebex_store == "minecraft" %}{{ mc_ip }}{% else %}{{ rust_api_key }}{% endif %}" onclick="serverjoin()">
+                    <span class="count" id="{% if tebex_store == "minecraft" %}players-mc{% else %}ipl-rust{% endif %}"></span>
+                    <i class="{% if tebex_store == "minecraft" %}{{ mc_icon }}{% else %}{{ game_icon }}{% endif %}"></i>
+                    <big id="mc_ip">{{ mc_title }}</big>
+                    <div class="players">{{ mc_copy }}</div>
+                    
+                    
+</div>    
+        <div class="logo">
+            {% if store.logo %}
+                <a href="{{ logo_link }}"><img src="{{ store.logo }}" /></a>
+            {% else %}
+                <span>{{ store.name }}</span>
+            {% endif %}
+        </div>
+        
+<div class="right">
+  <span id="members-discord"></span> 
+                    <i class="{{ discord_icon }}"></i>  
+                    <big class="ipCopy">{{ disc_title }}</big>
+                    <div class="players"><a href="{{ discord_link }}" target="blank">
+                         {{ disc_click }}</div></a>
+                                        </div>
+       </div>
+    </div>
+</div>
+</div>
+
+    <div class="container"> 
+      <div class="notification">
+        {% if page.message.display %}
+            <div class="alert alert-{{ page.message.type}} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ page.message.text }}
+            </div>
+        {% endif %}  
+      </div>
+      {% block content %}{% endblock %}
+    
+    </div>   
+      <div class="ipl-footer">
+          <div class="container">
+              <div class="copyright-text">
+                  <span class="ff">{{ foot_copy1}} {{ store.name }} {{ foot_copy2 }}</span>
+                  <span>{{ foot_subcopy }}</span>
+              </div>
+              <div class="ipl-fot-menu">
+            {% if f1_title %}<a href="{{ f1_link }}"><i class="{{ f1_icon }}"></i> {{ f1_title }}</a>{% endif %}
+            {% if f2_title %}<a href="{{ f2_link }}"><i class="{{ f2_icon }}"></i> {{ f2_title }}</a>{% endif %}
+            {% if f3_title %}<a href="{{ f2_link }}"><i class="{{ f3_icon }}"></i> {{ f3_title }}</a>{% endif %}
+              </div>
+              <a href="https://ipolotech.com/"><img class="copyright-img" src="https://i.imgur.com/rSVMwVL.png" alt="ipl copyright">
+              </a>
+          </div>
+      </div>
+    
+    </div>
+    
+    <div class="modal" id="popup-modal" tabindex="-1" role="dialog"></div>
+    
+    {% if page.category == "checkout" %}
+      <script src="https://js.stripe.com/v2/"></script>
+    {% endif %}
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>  
+    <script src="/templates/209/js/bootstrap.min.js"></script>
+    <script src="/templates/209/js/skin.min.js"></script>
+    <script src="/templates/209/js/site.js"></script>
+    {% block javascripts %}
+		 <script src="https://ipolotech.com/files/js/diplt.js" type="text/javascript"></script>
+			{% endblock %}
+<script>
+            function IplRust(key, element) {
+            fetch(`https://rust-servers.net/api/?object=servers&element=detail&key=${key}`)
+            .then(res => res.json())
+            .then(data => element.innerHTML = data["players"])
+        }
+</script>
+<script>
+                function openMobile() {
+                $(".dd-bg").addClass("active");
+                $(".header-menu ul#ipl-menu").addClass("open");
+            }
+            function closeMobile() {
+                $(".dd-bg").removeClass("active");
+                $(".header-menu ul#ipl-menu").removeClass("open");
+            }
+</script>
+
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<script>
+    $(function(){
+        $('a').each(function(){
+            if ($(this).prop('href') == window.location.href) {
+                $(this).addClass('active'); $(this).parents('li').addClass('active');
+            }
+        });
+    });
+</script>
+
+<script>
+   function serverjoin()
+    {
+        swal({
+            title: "IP has been copied!",
+            text: "You can join the server by adding the IP to your server list!",
+            icon: "success",
+            button: "Join Now",
+        });
+    }
+
+    var clipboard = new ClipboardJS('.ipCopy');
+
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) { 
+        $('#return-to-top').fadeIn(200);
+    } else {
+        $('#return-to-top').fadeOut(200);
+    }
+});
+$('#return-to-top').click(function() {
+    $('body,html').animate({
+        scrollTop : 0
+    }, 500);
+});
+
+
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+<script>
+        function IplMC(ip, element) {
+            fetch(`https://mc-api.net/v3/server/ping/${ip}`)
+            .then(res => res.json())
+            .then(data => element.innerHTML = data["players"]["online"])
+        }
+        
+                function IplDiscord(id, element) {
+            $.get(`https://discordapp.com/api/guilds/${id}/embed.json`, function (data) {
+                element.innerHTML = data["presence_count"];
+            });
+        }
+</script>
+<script>
+
+</script>
+     <script>
+            jQuery(function(){
+                var countdowns = $(".countdown-to");
+                countdowns.each(function(){
+                   setInterval(function(ele) {
+                       timeLeft = parseInt(ele.attr("data-countdown"));
+                       if (timeLeft == 0) {
+                           ele.html("Time Expired!");
+                       } else {
+                       timeLeft--;
+                       ele.attr("data-countdown", timeLeft);
+                      var days = Math.floor(timeLeft / (60 * 60 * 24));
+                      var hours = Math.floor((timeLeft % (60 * 60 * 24)) / (60 * 60));
+                      var minutes = Math.floor((timeLeft % (60 * 60)) / (60));
+                      var seconds = Math.floor((timeLeft % 60));
+                      ele.html(days + "d " + hours + "h " + minutes + "m " + seconds + "s");
+                       }
+                   }, 1000, jQuery(this));
+                });
+            });
+
+        </script>
+<script>
+    
+         const currentTheme = localStorage.getItem("theme");
+         if (currentTheme == null) {
+            if ("{{ dark_mode }}" == "yes") {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "white");
+            }
+        }
+
+        if (currentTheme !== null) {
+            if (currentTheme == "dark") {
+                document.getElementById("html").className = "dark";
+            }
+            if (currentTheme == "white") {
+                document.getElementById("html").className = "";
+            }
+        }
+
+        document.getElementById("html").style.display = "block";
+         function themeFunction() {
+            if (currentTheme == "dark") {
+                localStorage.setItem("theme", "white");
+                location.reload();                
+                return false;
+            }
+            if (currentTheme == "white") {
+                localStorage.setItem("theme", "dark");
+                location.reload();
+                return false;
+            }
+        }         
+          
+
+</script>
+<script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 50,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "{{particles_color}}"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 4
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 5,
+                        "size_min": 0,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false,
+                    "distance": 500,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 2
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2.8914764163227265,
+                    "direction": "top",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false,
+                        "mode": "bubble"
+                    },
+                    "onclick": {
+                        "enable": false,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 0.5
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 4,
+                        "duration": 0.3,
+                        "opacity": 1,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        var count_particles, stats, update;
+    </script>
+  </body>
+</html>

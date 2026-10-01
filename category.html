@@ -1,0 +1,232 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<div class="body">
+<div class="col-md-3">
+<nav class="navbar navbar-default" role="navigation">
+    {% if nav_title %}<div class="ipl-navigation-menu">{% if nav_icon %}<i class="{{ nav_icon }}"></i>{% endif %}{{ nav_title }}</div>{% endif %}
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">{{ store.name }}</a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="{% if page.category == "index" %}active{% endif %}"><a href="/">{{ __("Home") }}</a></li>
+                {% for category in store.categories %}
+                  {% if category.subcategories|length > 0 %}
+                    <li class="{% if category.active %}active{% endif %}">
+                      <a href="/category/{{ category.id }}">{{ category.name }} <i class="fa fa-caret-right">
+                      </i></a>
+                  {% else %}
+                    <li class="{% if category.active %}active{% endif %}"><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% for page in store.pages %}
+                    <li class="{% if page.active %}active{% endif %}">
+                        <a href="/{{ page.slug }}">{{ page.title }}</a></li>
+                {% endfor %}                
+                {% if basket.packages|length > 0 %} 
+                    <li class="visible-xs {% if page.category == "checkout" %}active{% endif %}"><a href="/checkout/basket">{{ __("Checkout") }}</a></li>
+                {% endif %}
+                {% if basket.username %} 
+                    <li class="visible-xs"><a href="/checkout/logout">{{ __("Logout") }}</a></li>
+                {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+		    {{ modules| raw }}
+		</div>    
+		<div class="col-md-9 ipl-category">
+		    <div class="ipl-box">
+        <i class="mdi mdi-store"></i>
+        <div class="ipl-box-text">
+            <span>{{ a_title }}</span>
+            <p>{{ a_text }}</p>
+        </div>
+        <div class="ipl-box-cart" class="basket-button dropdown-toggle" data-toggle="dropdown">
+            <div class="ipl-cart-content">
+                {% if basket.username %} 
+                  <div class="ipl-cart-info">
+                    <span>{{ basket.ign }}'s Cart</span>
+                    <div class="ipl-basket">
+                      <span>
+                       TOTAL:
+                      </span>
+                      <span>
+                          {% if basket.packages|length > 0 %}
+                          {{ basket.price|money }} {{ basket.currency }}
+                          {% else %} 
+                          0 {{ basket.currency }}
+                          {% endif %}
+                      </span>
+                    </div>
+                </div>
+                <div class="ipl-cart-icon">
+                       {% if basket.packages|length > 0 %}
+                       <span id="ipl-num">
+                       {{ _p(":count", basket.packages|length, {'count' : basket.packages|length }) }}</span>
+                      {% endif %}
+                      
+                    <i class="mdi mdi-shield-account"></i></div> 
+                {% else %} 
+                <div class="ipl-cart-info no-log">
+                    <span><b>Welcome</b></span>
+                    <span>Not Logged in</span>
+                </div>
+                <div class="ipl-cart-icon"><i class="mdi mdi-shield-off"></i></div>    
+                {% endif %}
+            </div>
+        </div>
+        <div class="dropdown-menu dropdown-menu-right" role="menu">
+        <div class="dropdown-top-bar">
+            <div class="currency-top">
+                <span>Currency: {{ basket.currency }}</span>
+            </div>
+            <div class="dropdown-logout">
+                {% if basket.username %} 
+                <a href="/checkout/logout" class="login-button out">{{ __("Logout") }}</a>
+                {% else %}
+                <a href="/login" class="login-button">{{ __("Login") }}</a>
+                {% endif %}
+            </div>
+        </div>
+             <ul>
+                        {% for package in basket.packages %}
+                            <li class="item">
+                            <div class="name">{{ package.name[:25] }}</div>
+                            <div class="price">{{ package.price|money }} <small>{{ basket.currency }}</small></div>
+                            <div class="remove"><a href="/checkout/packages/remove/{{ package.id }}"><span class="fa fa-times"</span></a></div>
+                            </li>
+                        {% endfor %}
+                        <li class="checkout">
+                          <div class="total"><b>{{ __("Total") }}:</b> {{ basket.price|money }} <small>{{ basket.currency }}</small></div>
+                          <div class="button"><a href="/checkout/basket" class="btn btn-success">{{ __("Checkout") }}</a></div>
+                        </li>
+                    </ul>
+                    </div>
+    </div>
+		    <ul class="ipl-subcategory">
+         {% for category in store.categories %}
+         {% if category.active %}
+ {% if category.subcategories|length > 0 %}
+{% for subcategory in category.subcategories %}
+                            <li><a href="/category/{{ subcategory.id }}">{{ subcategory.name }}</a></li>
+                          {% endfor %}
+    {% else %}
+    {{ no_subcategories }}
+{% endif %}
+{% endif %}
+{% endfor %}
+    </ul>  
+    <div class="ipl-subcategory-name">
+                  {% if category.subcategories|length > 0 %}
+                    <li class="dropdown {% if category.active %}active{% endif %}">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ category.name }} <i class="fa fa-caret-down"></i></a>
+                        <ul class="ipl-subcategory">
+                          {% for subcategory in category.subcategories %}
+                            <li><a href="/category/{{ subcategory.id }}">{{ subcategory.name }}</a></li>
+                          {% endfor %}
+                        </ul>
+                  {% else %}
+                    <li class="{% if category.active %}active{% endif %}"><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+                    {% endif %}
+    </div>
+			{% if category.description != "" %}
+				<div class="panel panel-default">
+					<div class="panel-body">
+						{{ category.description|raw }}
+					</div>
+				</div>
+			{% endif %}
+			<div class="panel panel-default">
+				{% if category.description == "" %}
+				{% endif %}
+				<div class="panel-body">
+					{% if category.packages|length > 0 %}
+					    <div class="category">
+    						{% if category.displayType == "list" %}
+                                <div class="packages-row">
+                                    <table class="table table-hover table-striped">
+    							        <tbody>
+    							            <tr>
+        									{% for package in category.packages %}
+        									   <td class="name">{{ package.name }} {% if package.countdownEnds %}
+        									   <span class="text-danger">&nbsp;&nbsp;<i class="fa fa-clock-o"></i> 
+        									   <span class="countdown-to" data-countdown="{{ package.countdownEnds }}">{{ __("Ending Soon!") }}
+        									   </span>
+        									   </span>
+        									   {% endif %}
+        									   </td>
+                                                  <td class="price">
+                                                    {% if package.customPrice == false and package.price > 0 %}
+        						                        {% if package.discount.applied %}
+        						                  		    <span class="discount">{{ package.discount.original|money }} {{ basket.currency }}</span>
+        						                  		{% endif %}
+        												{{ package.price|money }} <small>{{ basket.currency }}</small>
+        											{% endif %}
+                                                  </td>
+                                                  <td class="button">
+                                                    {% if package.basket %}
+        					                  			<a href="/checkout/packages/remove/{{ package.id }}" class="btn btn-sm btn-danger btn-block">{{ __("Remove") }}</a>
+        					                  		{% else %}
+        											    <a href="javascript::void(0);" data-remote="/package/{{ package.id }}" class="btn btn-sm btn-info btn-block toggle-modal">{{ __("Buy") }}</a>
+        											{% endif %}
+                                                  </td>
+                                                </tr>
+        									{% endfor %}
+    							        </tbody>
+    						        </table>
+    						    </div>
+    						{% else %}
+    						    <div class="packages-image">
+        							{% for package in category.packages %}
+        							    <div class="package">
+        							        {% if package.discount.applied %}
+        							        <span class="ipl-discount">{{ package.discount.percentage }}% OFF</span>{% endif %}
+                                            <div class="image">
+                                                <a href="javascript:void(0);" data-remote="/package/{{ package.id }}" class="toggle-modal">
+                                                    <img src="{{ package.image.url }}" class="toggle-tooltip {% if package.image.borderless %}img-rounded{% else %}img-thumbnail{% endif %}" title="{{ __("Click for more details") }}" />
+                                                </a>
+                                            </div>
+                                            <div class="info">
+                                              <div class="ipl-category-text">
+                                                <div class="name">{{ package.name[:20] }}
+                                                   {% if package.countdownEnds %}<br /><span class="text-danger"><i class="fa fa-clock-o"></i> <span class="countdown-to" data-countdown="{{ package.countdownEnds }}">{{ __("Ending Soon!") }}</span></span>{% endif %}
+                                                </div>
+                                                <div class="ipl-category-price">
+                                                    {% if package.customPrice == false and package.price > 0.00 %}
+        												{% if package.discount.applied %}
+        				                  					<span class="discount">{{ package.discount.original|money }} {{ basket.currency }}</span>
+        				                  				{% endif %}
+        												{{ package.price|money }} <small>{{ basket.currency }}</small>
+        											{% endif %}
+        										</div>
+                                              </div>
+                                              <div class="ipl-category-button">
+                                                {% if package.basket %}
+        		                  					<a href="/checkout/packages/remove/{{ package.id }}" class="btn btn-sm btn-danger btn-block">{{ __("Remove") }}</a>
+        		                  				{% else %}
+        											<a href="javascript::void(0);" data-remote="/package/{{ package.id }}" class="btn btn-sm btn-info btn-block toggle-modal ipl-anim">{{ __("Buy") }}</a>
+        										{% endif %}
+                                              </div>
+                                            </div>
+                                        </div>
+        							{% endfor %}
+        						</div>
+    						{% endif %}
+    					</div>
+					{% else %}
+						<b>{{ __("No packages to display in this category.") }}</b>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

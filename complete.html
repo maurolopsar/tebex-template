@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="body">
+<div class="col-md-3">
+<nav class="navbar navbar-default" role="navigation">
+    {% if nav_title %}<div class="ipl-navigation-menu">{% if nav_icon %}<i class="{{ nav_icon }}"></i>{% endif %}{{ nav_title }}</div>{% endif %}
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">{{ store.name }}</a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="{% if page.category == "index" %}active{% endif %}"><a href="/">{{ __("Home") }}</a></li>
+                {% for category in store.categories %}
+                  {% if category.subcategories|length > 0 %}
+                    <li class="{% if category.active %}active{% endif %}">
+                      <a href="/category/{{ category.id }}">{{ category.name }} <i class="fa fa-caret-right">
+                      </i></a>
+                  {% else %}
+                    <li class="{% if category.active %}active{% endif %}"><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% for page in store.pages %}
+                    <li class="{% if page.active %}active{% endif %}">
+                        <a href="/{{ page.slug }}">{{ page.title }}</a></li>
+                {% endfor %}                
+                {% if basket.packages|length > 0 %} 
+                    <li class="visible-xs {% if page.category == "checkout" %}active{% endif %}"><a href="/checkout/basket">{{ __("Checkout") }}</a></li>
+                {% endif %}
+                {% if basket.username %} 
+                    <li class="visible-xs"><a href="/checkout/logout">{{ __("Logout") }}</a></li>
+                {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+		    {{ modules| raw }}
+		</div>
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ __("Payment completed") }}</div>
+                <div class="panel-body">
+                    {{ thanks|raw }}
+                    <br>
+                    {{ delivery|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
