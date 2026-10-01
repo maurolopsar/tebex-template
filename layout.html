@@ -3,9 +3,9 @@
 {# Template Setting Area #}	
 {# All changes are made between ' '  !!!#}
 
-{% set dark_mode = 'no' %} {# THEME COLOR. For DARK MODE: 'yes', for LIGHT MODE: 'no' #}
+{% set dark_mode = 'yes' %} {# THEME COLOR. For DARK MODE: 'yes', for LIGHT MODE: 'no' #}
 {% set switch_color = 'no' %} {# THEME SWITCH COLOR. To activate switch button: 'yes, to disable: 'no' #}
-{% set particles_js = 'yes' %} {# PARTICLES JS. To activate: 'yes', to disable: 'no' #}
+{% set particles_js = 'no' %} {# PARTICLES JS. To activate: 'yes', to disable: 'no' #}
 
 {# Set to your game #}
 {% set tebex_store = 'rust' %} {# All options: 'rust' , 'minecraft' #}
@@ -26,7 +26,7 @@
 {% set mc_icon = 'mdi mdi-minecraft' %}  {# Minecraft players icon. DO not incluse <i class=""></i> #}
 {% set discord_icon = 'mdi mdi-discord' %}  {# Discord players icon. DO not incluse <i class=""></i> #}
 {% set logo_link = 'https://ipolotech.com' %} {# Logo link. Include https:// or http:// #}
-{% set particles_color = '#fd544d' %} {# Particles JS Color #}
+{% set particles_color = '#ff2fd0' %} {# Particles JS Color #}
 
 
 {# Navigation #}
@@ -136,6 +136,7 @@
     <style>{{ store.css|raw }}</style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.5.95/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"/>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Kanit:400,400i,600,700,700i,900&display=swap"/>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,40,700,600" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -170,6 +171,7 @@
 
   </head>
   <body>
+<div class="bg-glow"></div>
 <div class="ipl-header">
     <div id="{% if particles_js == "yes" %}particles-js{% else %}{% endif %}"></div>
     <div class="top-bar">
@@ -408,15 +410,17 @@ $(document).ready(function(){
         }
 
         if (currentTheme !== null) {
-            if (currentTheme == "dark") {
-                document.getElementById("html").className = "dark";
-            }
-            if (currentTheme == "white") {
-                document.getElementById("html").className = "";
+            if (document.getElementById("html")) {
+                if (currentTheme == "dark") {
+                    document.getElementById("html").className = "dark";
+                }
+                if (currentTheme == "white") {
+                    document.getElementById("html").className = "";
+                }
             }
         }
 
-        document.getElementById("html").style.display = "block";
+        if (document.getElementById("html")) { document.getElementById("html").style.display = "block"; }
          function themeFunction() {
             if (currentTheme == "dark") {
                 localStorage.setItem("theme", "white");
@@ -432,6 +436,7 @@ $(document).ready(function(){
           
 
 </script>
+{% if particles_js == "yes" %}
 <script>
         particlesJS("particles-js", {
             "particles": {
@@ -545,5 +550,6 @@ $(document).ready(function(){
         });
         var count_particles, stats, update;
     </script>
+{% endif %}
   </body>
 </html>
