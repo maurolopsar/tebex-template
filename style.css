@@ -2377,7 +2377,7 @@ ul.ipl-subcategory {
 
     /* Variables del tema original, remapeadas a la paleta Crystal */
     --main-color: #ffffff;
-    --second-color: #ffffff;
+    --second-color: #1a1a1a;
     --hover: #d9d9d9;
     --text-color: #ffffff;
     --panel-heading: var(--cn-card);
@@ -2580,6 +2580,28 @@ a.ipl-but i { color: var(--cn-pink) !important; }
 #return-to-top, .dark #return-to-top { background: #fff !important; border-radius: 50% !important; }
 #return-to-top i, .dark #return-to-top i { color: #05030c; }
 
+/* ---------- Ajustes de pulido ---------- */
+/* Inter en todo el texto (los iconos <i> conservan su fuente) */
+body *:not(i):not(.fa):not(.fas):not(.fab):not(.far):not(.mdi) { font-family: var(--font-family) !important; }
+span#ipl-bcuren, .currency span, .currency span i { background: transparent !important; color: #fff !important; }
+.ipl-index-block i.icon, .ipl-index-block i.fas, .ipl-index-block i.mdi { background: var(--cn-card) !important; color: var(--cn-pink) !important; border-radius: 50%; }
+.table-striped > tbody > tr:nth-of-type(odd), .table-hover > tbody > tr:hover, .table > tbody > tr:hover { background: transparent !important; }
+.table-hover > tbody > tr:hover > td { background: rgba(255,255,255,.04) !important; }
+.table, .table > tbody > tr > td, .table > thead > tr > th { color: #fff; }
+.well, .table.well { background: var(--cn-card-active) !important; border: 0 !important; box-shadow: none !important; border-radius: var(--cn-radius-sm) !important; color: #fff; }
+.ipl-index-mt, .dark .ipl-index-mt, .dark .panel.panel-default.ipl-index p { color: #fff; }
+.currency .btn, .currency .btn-default { border: 0 !important; }
+span#ipl-bcuren { border: 0 !important; box-shadow: none !important; }
+.img-thumbnail, .img-rounded { background: transparent !important; border: 0 !important; padding: 0; border-radius: var(--cn-radius-sm); }
+.ipl-subcategory-name { padding: 6px !important; }
+.ipl-subcategory-name li { background: var(--cn-card-active) !important; box-shadow: none !important; border-radius: var(--cn-radius-sm); font-size: 17px; }
+.ipl-subcategory-name li ul.ipl-subcategory { background: transparent !important; padding: 0 0 0 12px !important; margin: 0 !important; border-radius: 0 !important; }
+ul.ipl-subcategory li a.active, ul.ipl-subcategory li.active a { background: #fff; color: #05030c !important; border-bottom: 0; border-radius: 999px; }
+a.ipl-but.one, a.ipl-but.two, a.ipl-but .ipl-but-title, a.ipl-but .ipl-but-info, a.ipl-but .ipl-but-info * { color: #fff !important; }
+.modal-header { background: var(--cn-card-active) !important; border-radius: var(--cn-radius-sm); }
+.modal-body { color: #fff; }
+.modal-content { background-color: var(--cn-card) !important; }
+
 @media (max-width: 768px) {
     .players-count { flex-direction: column; }
     .left.ipCopy, .right { width: 100%; }
@@ -2588,3 +2610,5 @@ a.ipl-but i { color: var(--cn-pink) !important; }
     .bg-glow { animation: none; }
     *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+/* El submenú anidado duplica la lista de subcategorías de arriba y se solapa en móvil */
+.ipl-subcategory-name li ul.ipl-subcategory { display: none !important; }
