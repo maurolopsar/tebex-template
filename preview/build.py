@@ -141,8 +141,16 @@ def build():
             print("ERROR", name, repr(e))
         (OUT / name).write_text(post(html, css), encoding="utf-8")
         links.append(name)
-    idx = "<h1>Preview</h1><ul>" + "".join(f"<li><a href='{n}'>{n}</a></li>" for n in links) + "</ul>"
+    items = "".join(f"<a href='{n}'>{n}</a>" for n in links)
+    idx = ("<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
+           "<title>Preview</title><style>body{margin:0;min-height:100vh;background:#05030c;color:#fff;font-family:Inter,system-ui,sans-serif;"
+           "display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}"
+           "h1{margin:0;letter-spacing:-.02em}nav{display:grid;gap:10px;width:min(320px,90vw)}"
+           "a{background:#0a0a0a;color:#fff;text-decoration:none;padding:14px 20px;border-radius:20px;font-weight:600}"
+           "a:hover{background:#1a1a1a}p{opacity:.6;margin:0}</style>"
+           f"<h1>Preview de la plantilla</h1><p>Elige una página</p><nav>{items}</nav>")
     (OUT / "_index.html").write_text(idx, encoding="utf-8")
+    (OUT / "index_menu.html").write_text(idx, encoding="utf-8")
     print("Generado en", OUT)
 
 
@@ -153,7 +161,12 @@ if __name__ == "__main__":
     a = ap.parse_args()
     build()
     if a.serve:
-        h = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(OUT))
+        class H(http.server.SimpleHTTPRequestHandler):
+            def do_GET(self):
+                if self.path in ("/", ""):
+                    self.path = "/index.html"
+                super().do_GET()
+        h = functools.partial(H, directory=str(OUT))
         with socketserver.TCPServer(("", a.port), h) as s:
-            print(f"http://localhost:{a.port}/_index.html")
+            print(f"Abre http://localhost:{a.port}/  (menú: /_index.html)")
             s.serve_forever()

@@ -3,7 +3,7 @@
 Renderiza las plantillas con Jinja2 (casi idéntico a Twig) y datos de mentira.
 
     pip install jinja2
-    python preview/build.py --serve     # abre http://localhost:8000/_index.html
+    python preview/build.py --serve     # abre http://localhost:8000/  (menú de páginas en /_index.html)
 
 Genera `preview/out/*.html` (uno por plantilla). Cada vez que cambies un `.html` o `style.css`, vuelve a ejecutar el comando.
 
