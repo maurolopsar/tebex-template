@@ -1,28 +1,13 @@
-<div class="panel panel-default module ipl-body">
-    <div class="panel-body">
-      <ul class="payments">
-        {% for payment in module.payments %}
-            <li>
-              <div class="avatar" data-toggle="tooltip" data-html="true" title="
-              {{ payment.ign }} </br>
-                    {% if module.displayTime %}
-                        &bull; {{ payment.time }}
-                    {% endif %}</br>
-                  {% if module.displayPackage %}
-                        {{ payment.name[:20] }}
-                    {% endif %}
-                    {% if module.displayPackage and module.displayPrice %}
-                        &bull;
-                    {% endif %}
-                    {% if module.displayPrice %}
-                        {{ payment.price|money }} {{ payment.currency }}
-                    {% endif %}">
-                <img src="{{ payment.skin }}" width="28" />
-              </div>
-            </li>
-        {% else %}
-            {{ __("No recent payments to display.") }}
-        {% endfor %}
-      </ul>
-    </div>
+<div class="card module">
+  <ul class="payments">
+    {% for payment in module.payments %}
+      <li>
+        <div class="avatar" data-toggle="tooltip" data-html="true" title="{{ payment.ign }}<br>{% if module.displayTime %}{{ payment.time }}<br>{% endif %}{% if module.displayPackage %}{{ payment.name[:20] }}{% endif %}{% if module.displayPackage and module.displayPrice %} &bull; {% endif %}{% if module.displayPrice %}{{ payment.price|money }} {{ payment.currency }}{% endif %}">
+          <img src="{{ payment.skin }}" width="32" height="32" alt="{{ payment.ign }}" />
+        </div>
+      </li>
+    {% else %}
+      <li class="muted">{{ __("No recent payments to display.") }}</li>
+    {% endfor %}
+  </ul>
 </div>

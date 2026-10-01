@@ -82,6 +82,8 @@ def mock():
                        order_date="2026-10-01", payment_status="completed", commands_due=0, commands_executed=2, commands_scheduled=0)],
         payment=dict(ign="Steve", name="VIP Crystal", price=9.99, currency="EUR", time="hace 2h", skin=SKIN.format("Steve"),
                      order_date="2026-10-01", payment_status="completed", commands_due=0, commands_executed=2, commands_scheduled=0),
+        index=dict(description="<p>Descripción de la portada editable desde Webstore &gt; Design &gt; Homepage.</p>"),
+        thanks="<p>¡Gracias por tu compra!</p>", gateway=dict(note="<p>Sigue las instrucciones de pago.</p>", scripts=""),
         category=cats[0], package=p1, coupon=dict(code="CRYSTAL10", description="10% de descuento"),
     )
 
@@ -109,7 +111,7 @@ def render_modules(env, base):
 PAGES = {  # archivo -> (page.category, extra)
     "index.html": ("index", {}), "category.html": ("category", {}), "checkout.html": ("checkout", {}),
     "options.html": ("options", {}), "username.html": ("username", {}), "orderstatus.html": ("orderstatus", {}),
-    "complete.html": ("complete", {}), "cms-page.html": ("page", {}), "instructions.html": ("instructions", {}),
+    "complete.html": ("complete", {}), "checkout-card.html": ("checkout", {"_tpl": "checkout.html"}), "cms-page.html": ("page", {}), "instructions.html": ("instructions", {}),
 }
 
 
@@ -132,10 +134,13 @@ def build():
     OUT.mkdir(exist_ok=True)
     links = []
     for name, (cat, extra) in PAGES.items():
+        extra = dict(extra); tpl = extra.pop("_tpl", name)
         ctx = dict(base, **extra)
+        if name == "checkout-card.html":
+            ctx["store"] = dict(base["store"], useCheckout=False)
         ctx["page"] = dict(base["page"], category=cat, title=name)
         try:
-            html = env.get_template(name).render(**ctx)
+            html = env.get_template(tpl).render(**ctx)
         except Exception as e:  # una plantilla rota no debe impedir ver las demás
             html = f"<pre style='color:red'>Error renderizando {name}: {e!r}</pre>"
             print("ERROR", name, repr(e))

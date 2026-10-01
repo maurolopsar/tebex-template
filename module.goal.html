@@ -1,19 +1,8 @@
-<div class="panel panel-default module">
-    <div class="panel-body ipl-body">
-        <div class="donation-goal">
-            <div class="progress {% if module.bar.style == "striped" %} progress-striped {% endif %} 
-            {% if module.bar.animated %} active {% endif %}">
-            <p>
-                {% if module.displayAmount %}
-                    {{ module.percentage }}%
-    		    {% endif %}
-
-    		    {% if module.displayAmount == false %}
-    			    {{ module.percentage }}% {{ __("completed") }}
-    		    {% endif %} 
-            </p>
-                <div class="progress-bar" role="progressbar" style="width:{{ module.percentage }}%;"></div>
-            </div>
-        </div>
-    </div>
+<div class="card module donation-goal">
+  <div class="progress {% if module.bar.style == "striped" %}progress-striped{% endif %} {% if module.bar.animated %}active{% endif %}">
+    <div class="progress-bar" role="progressbar" style="width:{{ module.percentage }}%;"></div>
+    <p>
+      {% if module.displayAmount %}{{ module.percentage }}%{% else %}{{ module.percentage }}% {{ __("completed") }}{% endif %}
+    </p>
+  </div>
 </div>
