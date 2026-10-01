@@ -4,7 +4,7 @@
   {# Subcategorías de la categoría activa, como píldoras #}
   {% for parent in store.categories %}
     {% if parent.active and parent.subcategories|length > 0 %}
-      <div class="nav-pills fade-up">
+      <div class="nav-pills">
         <a class="nav-pill {% if parent.id == category.id %}active{% endif %}" href="/category/{{ parent.id }}">{{ parent.name }}</a>
         {% for subcategory in parent.subcategories %}
           <a class="nav-pill {% if subcategory.id == category.id %}active{% endif %}" href="/category/{{ subcategory.id }}">{{ subcategory.name }}</a>
@@ -13,15 +13,15 @@
     {% endif %}
   {% endfor %}
 
-  <div class="page-title fade-up"><h1>{{ category.name }}</h1></div>
+  <div class="page-title"><h1>{{ category.name }}</h1></div>
 
   {% if category.description != "" %}
-    <div class="card rich fade-up">{{ category.description|raw }}</div>
+    <div class="card rich">{{ category.description|raw }}</div>
   {% endif %}
 
   {% if category.packages|length > 0 %}
     {% if category.displayType == "list" %}
-      <div class="card package-list fade-up">
+      <div class="card package-list">
         <table class="table">
           <tbody>
             {% for package in category.packages %}
@@ -51,7 +51,7 @@
         </table>
       </div>
     {% else %}
-      <div class="package-grid fade-up">
+      <div class="package-grid">
         {% for package in category.packages %}
           <div class="card package">
             {% if package.discount.applied %}<span class="card-badge">-{{ package.discount.percentage }}%</span>{% endif %}
@@ -78,6 +78,6 @@
       </div>
     {% endif %}
   {% else %}
-    <div class="card empty fade-up"><i class="mdi mdi-package-variant"></i>{{ __("No packages to display in this category.") }}</div>
+    <div class="card empty"><i class="mdi mdi-package-variant"></i>{{ __("No packages to display in this category.") }}</div>
   {% endif %}
 {% endblock %}

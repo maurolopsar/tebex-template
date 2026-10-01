@@ -2,13 +2,13 @@
 
 {% block content %}
   {% if a_title %}
-    <div class="card announce fade-up">
+    <div class="card announce">
       <i class="mdi mdi-bullhorn"></i>
       <div><b>{{ a_title }}</b><span>{{ a_text }}</span></div>
     </div>
   {% endif %}
 
-  <div class="card welcome fade-up">
+  <div class="card welcome">
     <span class="pill"><i class="mdi mdi-store"></i> {{ store.name }}</span>
     <h1>{{ h_welcome }}<span class="brand-pink">{{ store.name }}</span></h1>
     {% if h_title %}<p class="lead">{{ h_title }}</p>{% endif %}
@@ -18,7 +18,7 @@
 
   {# Categorías creadas en Tebex: se generan solas #}
   {% if store.categories|length > 0 %}
-    <div class="cat-grid fade-up">
+    <div class="cat-grid">
       {% for category in store.categories %}
         <a class="card card-clickable cat-card" href="/category/{{ category.id }}">
           <i class="mdi mdi-cube-outline"></i>
@@ -30,7 +30,7 @@
     </div>
   {% endif %}
 
-  <div class="info-grid fade-up">
+  <div class="info-grid">
     {% if block1_title %}
       <div class="card info-card">
         <div class="card-header">{% if block1_icon %}<i class="{{ block1_icon }}"></i>{% endif %}{{ block1_title }}</div>
@@ -47,7 +47,7 @@
     {% endif %}
   </div>
 
-  <div class="info-grid fade-up">
+  <div class="info-grid">
     {% if but1_t %}
       <a class="card card-clickable link-card" href="{{ but1_link }}">
         <i class="{{ but1_ic }}"></i>

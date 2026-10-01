@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <div class="card narrow fade-up">
+  <div class="card narrow">
     <div class="card-header"><i class="mdi mdi-information"></i>{{ __("Payment instructions") }}</div>
     <div class="rich">
       {{ gateway.note|raw }}

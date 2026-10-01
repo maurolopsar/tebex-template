@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <div class="card fade-up">
+  <div class="card">
     <div class="card-header"><i class="mdi mdi-magnify"></i>{{ __("Order Status") }}</div>
     <p class="muted">{{ __("To look up a payment, you must provide your Minecraft username, and one of: transaction ID, email address or the value of the purchase:") }}</p>
     <form action="?" method="post" class="order-form">
@@ -17,7 +17,7 @@
     {% if payments|length > 0 %}
       <p class="muted">{{ _p("There is :payment_count matching payment", payments|length, {"payment_count": payments|length}) }}</p>
       {% for payment in payments %}
-        <div class="card payment-card fade-up">
+        <div class="card payment-card">
           <div class="card-header">{{ payment.order_date|date("Y-m-d") }} <span class="pill">{{ payment.payment_status }}</span></div>
           <dl class="kv">
             <dt>{{ __("Order Price:") }}</dt><dd>{{ payment.currency }}{{ payment.price|number_format(2, ".", ",") }}</dd>

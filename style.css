@@ -31,7 +31,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { overflow-x: clip; }
+html { overflow-x: clip; scroll-behavior: smooth; }
 html, body {
   margin: 0; padding: 0;
   background: var(--bg) !important;
@@ -140,7 +140,7 @@ label { font-weight: 600; color: var(--text-dim); margin-bottom: 6px; }
   background: var(--card-bg); border: 0; border-radius: var(--radius-lg); color: var(--text);
   transition: background .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease);
 }
-.status-card:hover { background: #111; box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 0 32px -8px var(--glow-accent); transform: translateY(-2px); color: var(--text); }
+.status-card:hover { background: #111; box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 0 32px -8px var(--glow-accent); color: var(--text); }
 .status-card > i { font-size: 32px; color: var(--pink); }
 .status-text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
 .status-text b { font-size: 16px; font-weight: 700; }
@@ -221,10 +221,10 @@ label { font-weight: 600; color: var(--text-dim); margin-bottom: 6px; }
 
 .package-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; padding-top: 6px; }
 .package { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: var(--radius) !important; background: var(--card-bg-active) !important; }
-.package:hover { background: #1a1a1a !important; transform: translateY(-3px); }
+.package:hover { background: #1a1a1a !important; }
 .package-image { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; border-radius: var(--radius-sm); background: rgba(255, 255, 255, .04); overflow: hidden; }
-.package-image img { width: 100%; height: 100%; object-fit: cover; border: 0 !important; background: transparent !important; padding: 0 !important; border-radius: 0 !important; transition: transform .4s var(--ease); }
-.package:hover .package-image img { transform: scale(1.05); }
+.package-image img { width: 100%; height: 100%; object-fit: cover; border: 0 !important; background: transparent !important; padding: 0 !important; border-radius: 0 !important; transition: filter .4s var(--ease); }
+.package:hover .package-image img { filter: brightness(1.12) saturate(1.1); }
 .package-image i { font-size: 44px; color: var(--text-faint); }
 .package-name { font-weight: 700; font-size: 16px; text-align: center; letter-spacing: -.01em; }
 .package-price { text-align: center; font-weight: 800; font-size: 18px; margin-top: auto; }
@@ -268,8 +268,8 @@ label { font-weight: 600; color: var(--text-dim); margin-bottom: 6px; }
   font-weight: 700; font-size: 14px; line-height: 1.2; text-shadow: none !important; box-shadow: none !important; cursor: pointer;
   transition: background .18s var(--ease), box-shadow .18s var(--ease), transform .18s var(--ease), filter .18s var(--ease);
 }
-.btn:hover, .btn:focus { filter: brightness(.9); color: #0a0a0a !important; box-shadow: 0 0 22px -8px var(--glow-accent) !important; transform: translateY(-1px); }
-.btn:active { filter: brightness(.96); transform: none; }
+.btn:hover, .btn:focus { filter: brightness(.9); color: #0a0a0a !important; box-shadow: 0 0 22px -8px var(--glow-accent) !important; }
+.btn:active { filter: brightness(.96); }
 .btn-block { display: flex; width: 100%; }
 .btn-sm, .btn-xs { padding: 8px 16px; font-size: 13px; }
 .btn-danger { background: rgba(255, 255, 255, .08) !important; color: var(--danger) !important; }
@@ -416,4 +416,89 @@ input[type="radio"], input[type="checkbox"] { accent-color: #fff; width: 16px; h
 @media (prefers-reduced-motion: reduce) {
   .bg-glow { animation: none; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
+
+/* =====================================================================
+   ANIMACIONES Y EFECTOS (mismo lenguaje que crystal_web:
+   entradas suaves, halos en hover, nada se mueve ni escala al pasar el ratón)
+   ===================================================================== */
+
+/* --- Aparición escalonada al entrar en pantalla (la activa el JS de layout.html) --- */
+.js .reveal { opacity: 0; }
+.js .reveal.in { opacity: 1; animation: fadeUp .6s var(--ease) var(--d, 0ms) backwards; }
+.fade-up { animation: none; } /* la entrada la gestiona .reveal */
+
+/* --- Foco de luz que sigue al ratón dentro de tarjetas (como el efecto de la marca de agua) --- */
+.card, .status-card, .package { isolation: isolate; }
+.card::before, .status-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none; opacity: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .07), transparent 70%);
+  transition: opacity .35s var(--ease);
+}
+.card:hover::before, .status-card:hover::before { opacity: 1; }
+.card.module::before, .package::before { display: none; }
+.package:hover { box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 0 28px -10px rgba(255, 47, 208, .45) !important; }
+
+/* --- Iconos en burbuja, como los de logros/rankings de la web --- */
+.status-card > i, .cat-card > i, .link-card > i:first-child, .announce > i {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 46px; height: 46px; border-radius: 50%; font-size: 22px;
+  background: rgba(255, 255, 255, .07); color: var(--pink);
+  transition: background .25s var(--ease), box-shadow .25s var(--ease), color .25s var(--ease);
+}
+.status-card:hover > i, .card:hover > i:first-child, .cat-card:hover > i, .link-card:hover > i:first-child {
+  background: rgba(255, 47, 208, .16); box-shadow: 0 0 22px -4px rgba(255, 47, 208, .55);
+}
+.cat-card > i { margin-bottom: 8px; }
+
+/* --- Esqueleto de carga (shimmer) mientras llegan los contadores --- */
+@keyframes shimmer { 0% { background-position: -180% 0; } 100% { background-position: 180% 0; } }
+.skel {
+  display: inline-block; min-width: 30px; height: 20px; vertical-align: middle; border-radius: 8px; color: transparent !important;
+  background: linear-gradient(90deg, var(--card-bg-active) 25%, rgba(255, 255, 255, .1) 50%, var(--card-bg-active) 75%);
+  background-size: 250% 100%; animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* --- Menús desplegables y modales con entrada suave --- */
+@keyframes menuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.open > .dropdown-menu { animation: menuIn .2s var(--ease); }
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-backdrop { background: rgba(4, 2, 10, .78) !important; }
+.modal-backdrop.in { opacity: 1 !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: overlayIn .2s var(--ease); }
+.modal.fade .modal-dialog { transform: translateY(16px) scale(.98) !important; opacity: 0; transition: transform .4s var(--ease), opacity .3s var(--ease) !important; }
+.modal.in .modal-dialog { transform: none !important; opacity: 1; }
+
+/* --- Contador del carrito y etiqueta de descuento --- */
+@keyframes pop { 0% { transform: scale(.4); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+.cart-count { animation: pop .5s var(--ease) both; }
+@keyframes badgeGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 47, 208, .5); } 50% { box-shadow: 0 0 18px 2px rgba(255, 47, 208, .55); } }
+.card-badge { animation: badgeGlow 2.6s ease-in-out infinite; }
+.online-dot { animation: dotPulse 2.4s ease-in-out infinite; }
+@keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+
+/* --- Fondo: dos brillos que se desplazan muy despacio sobre el vórtice --- */
+.bg-glow::before, .bg-glow::after { content: ""; position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; will-change: transform; }
+.bg-glow::before { width: 520px; height: 520px; left: -140px; top: 38%; background: rgba(168, 85, 255, .18); animation: drift1 30s ease-in-out infinite alternate; }
+.bg-glow::after { width: 460px; height: 460px; right: -120px; top: 14%; background: rgba(255, 47, 208, .14); animation: drift2 36s ease-in-out infinite alternate; }
+@keyframes drift1 { to { transform: translate(180px, -120px); } }
+@keyframes drift2 { to { transform: translate(-200px, 160px); } }
+
+/* --- Títulos y detalles --- */
+.brand-pink, .brand span { text-shadow: 0 0 36px rgba(255, 47, 208, .4); }
+.welcome h1 { text-shadow: 0 0 60px rgba(255, 255, 255, .08); }
+.nav-item, .nav-pill, .icon-pill a, .foot-menu a, .pill-action { transition: color .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease); }
+.nav-item i { transition: color .25s var(--ease); }
+.table-hover > tbody > tr > td { transition: background .2s var(--ease); }
+.progress-bar { background-size: 200% 100%; animation: barFlow 5s linear infinite; }
+@keyframes barFlow { to { background-position: -200% 0; } }
+
+/* --- Accesibilidad: foco visible --- */
+a:focus-visible, button:focus-visible, .btn:focus-visible, .nav-item:focus-visible, .card-clickable:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1 !important; }
+  .bg-glow::before, .bg-glow::after, .skel, .progress-bar, .card-badge, .online-dot { animation: none !important; }
 }

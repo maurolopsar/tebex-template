@@ -65,6 +65,7 @@
     <title>{{ store.name }} | {{ __(page.title) }}</title>
     <link rel="shortcut icon" href="{{ store.favicon }}">
 
+    <script>document.documentElement.className += " js";</script>
     <link href="/templates/209/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.5.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" crossorigin="anonymous">
@@ -180,12 +181,12 @@
         <button type="button" class="status-card ipCopy" data-clipboard-text="{{ mc_ip }}" onclick="serverjoin()">
           <i class="{{ mc_icon }}"></i>
           <span class="status-text"><b>{{ mc_title }}</b><small>{{ mc_copy }}</small></span>
-          <span class="status-count"><span id="players-mc">–</span> <small>online</small></span>
+          <span class="status-count"><span id="players-mc" class="skel">–</span> <small>online</small></span>
         </button>
         <a class="status-card" href="{{ discord_link }}" target="_blank" rel="noopener">
           <i class="{{ discord_icon }}"></i>
           <span class="status-text"><b>{{ disc_title }}</b><small>{{ disc_click }}</small></span>
-          <span class="status-count"><span id="members-discord">–</span> <small>online</small></span>
+          <span class="status-count"><span id="members-discord" class="skel">–</span> <small>online</small></span>
         </a>
       </div>
     </section>
@@ -266,13 +267,58 @@
 
     <script>
       $(function () {
+        // Contador animado: sube de 0 al valor real y quita el esqueleto de carga
+        function setCount(sel, n) {
+          var el = $(sel); n = parseInt(n, 10);
+          if (isNaN(n)) { el.removeClass("skel").text("–"); return; }
+          el.removeClass("skel"); var t0 = null;
+          function step(t) {
+            if (!t0) { t0 = t; }
+            var p = Math.min((t - t0) / 800, 1), e = 1 - Math.pow(1 - p, 3);
+            el.text(Math.round(n * e)); if (p < 1) { requestAnimationFrame(step); }
+          }
+          requestAnimationFrame(step);
+        }
+        function failCount(sel) { $(sel).removeClass("skel").text("–"); }
+        // Si algo tarda demasiado, se quita el esqueleto igualmente
+        setTimeout(function () { $(".skel").removeClass("skel"); }, 6000);
+
         // Jugadores online del servidor y de Discord (si falla, se queda en –)
         fetch("https://api.mcsrvstat.us/3/{{ mc_ip }}").then(function (r) { return r.json(); })
-          .then(function (d) { if (d && d.players) { $("#players-mc").text(d.players.online); } }).catch(function () {});
+          .then(function (d) { if (d && d.players) { setCount("#players-mc", d.players.online); } else { failCount("#players-mc"); } })
+          .catch(function () { failCount("#players-mc"); });
         {% if widget_id %}
         fetch("https://discord.com/api/guilds/{{ widget_id }}/widget.json").then(function (r) { return r.json(); })
-          .then(function (d) { if (d && d.presence_count !== undefined) { $("#members-discord").text(d.presence_count); } }).catch(function () {});
+          .then(function (d) { if (d && d.presence_count !== undefined) { setCount("#members-discord", d.presence_count); } else { failCount("#members-discord"); } })
+          .catch(function () { failCount("#members-discord"); });
+        {% else %}
+        failCount("#members-discord");
         {% endif %}
+
+        // Aparición escalonada al entrar en pantalla
+        var groups = ".main, .side, .package-grid, .cat-grid, .info-grid, .nav-pills, .hero-row, .side-nav, .site-footer-inner";
+        $(groups).each(function () {
+          $(this).children().each(function (i) {
+            $(this).addClass("reveal").css("--d", Math.min(i, 8) * 70 + "ms");
+          });
+        });
+        var items = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+          }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+          items.forEach(function (el) { io.observe(el); });
+          setTimeout(function () { items.forEach(function (el) { el.classList.add("in"); }); }, 3500);
+        } else {
+          items.forEach(function (el) { el.classList.add("in"); });
+        }
+
+        // Foco de luz que sigue al ratón en las tarjetas
+        $(document).on("mousemove", ".card, .status-card", function (e) {
+          var r = this.getBoundingClientRect();
+          this.style.setProperty("--mx", (e.clientX - r.left) + "px");
+          this.style.setProperty("--my", (e.clientY - r.top) + "px");
+        });
 
         // Marcar enlace activo
         $("a").each(function () {
